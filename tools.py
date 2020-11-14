@@ -86,3 +86,39 @@ def get_embedding(b_model, b_tokenizer, text, word=''):
         return (sentence_embedding, word_embedding)
     else:
         return sentence_embedding
+
+
+
+def pdf_to_text(name, save=False):
+    """
+    Convert pdf to txt
+    :param name: string with the name of the pdf, including .pdf
+    :return: pdftotext.PDF file
+    """
+    not_fail=True
+    try:
+        with open(os.path.join("Data","pdf",name), "rb") as f:
+            salida = pdftotext.PDF(f)
+            f.close()
+    except:
+        not_fail = False
+    if save:
+        rename = name.split(".")[0]
+        output_dir = os.getcwd()
+        local_dir_txt = os.path.join(output_dir, "Data", "text")
+        try:
+            os.mkdir(local_dir_txt)
+        except FileExistsError:
+            pass
+        if rename + ".txt" in local_dir_txt:
+            print("The txt file already exists")
+        elif not_fail:
+            with open(os.path.join(local_dir_txt,rename+".txt"), "w+") as file:
+                for page in salida:
+                    file.write(page)
+                file.close()
+        else:
+            print(rename + " was not downloaded")
+    else:
+        print("not saved")
+    return
