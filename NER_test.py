@@ -1,5 +1,6 @@
 import spacy
 import os
+from tools import pdf_to_text
 
 def NER_BERT_sm_uncased(text_name):
     # Download a spacy model for processing English
@@ -30,3 +31,8 @@ def NER_BERT_sm_uncased(text_name):
     for ent in doc.ents:
         # Print the entity text `ent.text` and its label `ent.label_`.
         print('{:<12}  {:}'.format(ent.text, ent.label_))
+
+
+if __name__ == '__main__':
+    pdf_to_text("DL template 01.pdf",save=True)
+    NER_BERT_sm_uncased("DL template 01.txt")
