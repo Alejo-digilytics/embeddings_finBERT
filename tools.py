@@ -149,7 +149,7 @@ def pdf_to_text(name, save=False):
     return
 
 
-def preprocess_doc(file, min_length=1,alpha=False):
+def preprocess_doc(file, min_length=1, alpha=False):
     # Check file format and convert to txt
     if ".pdf" in file:
         pdf_to_text(file, save=True)
@@ -198,7 +198,7 @@ def preprocess_doc(file, min_length=1,alpha=False):
         else:
             pass
     # Select values with a minimum
-    if min_length==1:
+    if min_length == 1:
         return text
     else:
         final_text = []

@@ -1,12 +1,13 @@
 from NER_test import NER_BERT_sm_uncased
 from tools import get_embedding, get_tokenizer_and_model, preprocess_doc, create_embedding
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cosine, euclidean
 import logging
 import time
 
 logging.basicConfig(level=logging.INFO)
 
 cosine_sim = lambda x, y: 1 - cosine(x, y)
+euclidean_sim = lambda x, y: euclidean(x, y)
 
 if __name__ == '__main__':
     BERT_model, BERT_tokenizer = get_tokenizer_and_model("bert-base-uncased", output_h_s=True)
@@ -18,25 +19,39 @@ if __name__ == '__main__':
     doc_emb_DL_02 = create_embedding("DL template 02.txt", BERT_model, BERT_tokenizer, min=1, just_alpha=True)
     print("_______________________")
     difference_1 = cosine_sim(doc_emb_DL_02, doc_emb_JH_01)
+    difference_11 = euclidean_sim(doc_emb_DL_02, doc_emb_JH_01)
     print("Same kind of document and different bank (DL-JH):")
     print(difference_1, "\n")
+    print(difference_11, "\n")
     difference_2 = cosine_sim(doc_emb_JH_02, doc_emb_DL_01)
+    difference_21 = euclidean_sim(doc_emb_JH_02, doc_emb_DL_01)
     print("Same kind of document and different bank (DL-JH):")
     print(difference_2, "\n")
+    print(difference_21, "\n")
     print("_______________________")
     print("Same kind of document and bank (DL):")
-    difference_same_1 = cosine_sim(doc_emb_DL_01, doc_emb_DL_02)
-    print(difference_same_1, "\n")
+    difference_same_DL1 = cosine_sim(doc_emb_DL_01, doc_emb_DL_02)
+    difference_same_DL11 = euclidean_sim(doc_emb_DL_01, doc_emb_DL_02)
+    print(difference_same_DL1, "\n")
+    print(difference_same_DL11, "\n")
     print("Same kind of document and bank (JH):")
-    difference_same_JH = cosine_sim(doc_emb_JH_01, doc_emb_JH_02)
-    print(difference_same_JH, "\n")
+    same_JH1 = cosine_sim(doc_emb_JH_01, doc_emb_JH_02)
+    same_JH11 = euclidean_sim(doc_emb_JH_01, doc_emb_JH_02)
+    print(same_JH1, "\n")
+    print(same_JH11, "\n")
     print("_______________________")
     print("Different kind of document (Bank statement, account certificate):")
     difference_same_JH = cosine_sim(doc_emb_JH_01, Acc_cert_1)
+    difference_same_JH1 = euclidean_sim(doc_emb_JH_01, Acc_cert_1)
     print(difference_same_JH, "\n")
+    print(difference_same_JH1, "\n")
     print("Different kind of document (Bank statement, account certificate):")
-    difference_docs = cosine_sim(doc_emb_DL_02, Acc_cert_1)
+    difference_docs = cosine_sim(doc_emb_JH_02, Acc_cert_1)
+    difference_docs1 = euclidean_sim(doc_emb_JH_02, Acc_cert_1)
     print(difference_docs, "\n")
+    print(difference_docs1, "\n")
     print("Different kind of document (Bank statement, bill):")
-    difference_docs = cosine_sim(doc_emb_DL_02, bill_1)
+    difference_docs = cosine_sim(doc_emb_JH_01, bill_1)
+    difference_docs1 = euclidean_sim(doc_emb_JH_01, bill_1)
     print(difference_docs, "\n")
+    print(difference_docs1, "\n")
