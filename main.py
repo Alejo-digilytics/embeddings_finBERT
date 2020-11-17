@@ -1,8 +1,6 @@
-from NER_test import NER_BERT_sm_uncased
-from tools import get_embedding, get_tokenizer_and_model, preprocess_doc, create_embedding
+from src.tools import get_tokenizer_and_model, create_embedding
 from scipy.spatial.distance import cosine, euclidean
 import logging
-import time
 
 logging.basicConfig(level=logging.INFO)
 

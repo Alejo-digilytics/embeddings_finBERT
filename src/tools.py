@@ -1,5 +1,4 @@
 import time
-
 import numpy as np
 import torch
 from transformers import BertTokenizer, BertModel
@@ -7,7 +6,6 @@ from transformers import AutoTokenizer, AutoModel
 import os
 import pdftotext
 import logging
-import re
 
 logging.basicConfig(level=logging.INFO)
 

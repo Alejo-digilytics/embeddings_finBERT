@@ -1,6 +1,6 @@
 import spacy
 import os
-from tools import pdf_to_text
+from src.tools import pdf_to_text
 
 def NER_BERT_sm_uncased(text_name):
     # Download a spacy model for processing English
@@ -12,7 +12,7 @@ def NER_BERT_sm_uncased(text_name):
         nlp = en_core_web_sm.load()
 
     # Process a sentence using the spacy model
-    local_dir_txt = os.path.join(os.getcwd(),"Data","text")
+    local_dir_txt = os.path.join(os.getcwd(), "Data", "text")
     if ".txt" in text_name:
         pass
     else:
