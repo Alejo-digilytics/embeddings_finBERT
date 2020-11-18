@@ -1,10 +1,11 @@
-from src.tools_tf_idf import word_spliter, raw_text_extracter, nlp_doc_obj, sentence_tokenization, lower_case
 import spacy
+
+from src.tools import sentence_tokenization, nlp_doc_obj
+from src.tools_preprocess import word_spliter, raw_text_extracter, lower_case
 
 global nlp
 nlp = spacy.load("en_core_web_sm")
 spacy.prefer_gpu()
-
 
 
 raw_text = raw_text_extracter("JH Template 1.pdf")

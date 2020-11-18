@@ -6,10 +6,7 @@ def NER_BERT_sm_uncased(text_name):
     # Download a spacy model for processing English
     os.system("python3 -m spacy download en_core_web_sm")
     spacy.prefer_gpu()
-    try:
-        nlp = spacy.load("en_core_web_sm")
-    except:
-        nlp = en_core_web_sm.load()
+    nlp = spacy.load("en_core_web_sm")
 
     # Process a sentence using the spacy model
     local_dir_txt = os.path.join(os.getcwd(), "Data", "text")
@@ -27,7 +24,7 @@ def NER_BERT_sm_uncased(text_name):
     # Display the entities found by the model, and the type of each.
     print('{:<12}  {:}\n'.format('Entity', 'Type'))
 
-    # For each entity found...
+    # Print eahc entity found
     for ent in doc.ents:
         # Print the entity text `ent.text` and its label `ent.label_`.
         print('{:<12}  {:}'.format(ent.text, ent.label_))

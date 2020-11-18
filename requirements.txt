@@ -6,3 +6,4 @@ scipy==1.5.4
 spacy==2.3.2
 pdftotext==2.1.5
 tqdm==4.48.2
+sklearn==0.0

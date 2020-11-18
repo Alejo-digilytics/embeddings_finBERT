@@ -1,6 +1,7 @@
-from src.tools import get_tokenizer_and_model, create_embedding
+from src.tools import get_tokenizer_and_model
 from scipy.spatial.distance import cosine, euclidean
 import logging
+from src.tools_embeddings import create_embedding
 
 logging.basicConfig(level=logging.INFO)
 

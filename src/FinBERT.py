@@ -6,8 +6,8 @@ import transformers
 
 # paths
 output_dir = os.path.join(os.path.split(os.getcwd())[0], "Data", "FinBERT_base")
-output_model_file = os.path.join(output_dir, "pytorch_model.bin")
-output_config_file = os.path.join(output_dir, "config.json")
+output_model_file = os.path.join(output_dir, "finbert_vocab_uncased.bin")
+output_config_file = os.path.join(output_dir, "config_fb.json")
 
 def loss_function(output, target, mask, num_labels):
     # Cross entropy for classification
@@ -36,7 +36,7 @@ class finbert_model(nn.Module):
 class BERT_entities(nn.Module):
     def __init__(self, num_tag, num_pos):
         super(BERT_entities, self).__init__()
-        self.bert = transformers.BertModel.from_pretrained(config.BASE_MODEL_PATH)
+        self.bert = transformers.BertModel.from_pretrained(config.BASE_MODEL_PATH_B)
         # NER parameters
         self.num_tag = num_tag
         self.num_pos = num_pos
@@ -62,14 +62,10 @@ class BERT_entities(nn.Module):
         # We add the linear outputs
         tag = self.out_tag(output_tag)
         pos = self.out_pos(output_pos)
-        # loss for each task! TODO: freeze
+        # loss for each task! TODO: freeze the other layers
         loss_tag = loss_function(tag, target_tag, mask, self.num_tag)
         loss_pos = loss_function(pos, target_pos, mask, self.num_pos)
         # Compute the accumulative loss
         loss = (loss_tag + loss_pos) / 2
         return tag, pos, loss
 
-
-model = torch.load(output_model_file)
-
-model.eval()
