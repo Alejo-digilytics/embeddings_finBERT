@@ -38,6 +38,8 @@ def check_device():
         device = torch.device("cuda")
         print('There are %d GPU(s) available.' % torch.cuda.device_count())
         print('We will use the GPU:', torch.cuda.get_device_name(0))
+        print("Cuda architectures lis{}".format(torch.cuda.get_arch_list()))
+        print("Device capability {}".format(torch.cuda.get_device_capability()))
     else:
         print('No GPU available, using the CPU instead.')
         device = torch.device("cpu")

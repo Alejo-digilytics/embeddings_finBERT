@@ -5,6 +5,7 @@ from sklearn import model_selection
 from transformers import AdamW, get_linear_schedule_with_warmup
 import src.config_data_loader as config
 from src import data_loader, train_finbert
+from src.tools import check_device
 from src.tools_preprocess import preprocess_data_BERT
 from src.FinBERT import BERT_entities
 
@@ -26,12 +27,14 @@ if __name__ == '__main__':
     # Format based on EntityDataset
     train = data_loader.EntityDataset(texts=train_sentences, pos=train_pos, tags=train_tag)
     test = data_loader.EntityDataset(texts=test_sentences, pos=test_pos, tags=test_tag)
+
     # Loaders
     train_data_loader = DataLoader(train, batch_size=config.TRAIN_BATCH_SIZE, num_workers=4)
     test_data_loader = DataLoader(test, batch_size=config.VALID_BATCH_SIZE, num_workers=4)
 
     # Use GPU and move model there -- device
     device = torch.device("cuda")
+    check_device()
     model = BERT_entities(num_tag=num_tag, num_pos=num_pos)
     model.to(device)
 
