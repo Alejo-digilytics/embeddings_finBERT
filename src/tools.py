@@ -6,8 +6,6 @@ from transformers import AutoTokenizer, AutoModel
 import logging
 
 logging.basicConfig(level=logging.INFO)
-global nlp
-nlp = spacy.load("en_core_web_sm")
 spacy.prefer_gpu()
 
 def get_tokenizer_and_model(path_to_case, output_h_s=False):
@@ -24,6 +22,7 @@ def get_tokenizer_and_model(path_to_case, output_h_s=False):
 
 
 def nlp_doc_obj(my_text,download=False):
+    nlp = spacy.load("en_core_web_sm")
     doc = nlp(my_text)
 
     # Create list of word tokens

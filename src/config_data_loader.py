@@ -1,7 +1,7 @@
 import transformers
 import os
 
-base_path = os.path.join("/home", "alejo", "PycharmProjects", "embeddings_finBERT")
+base_path = os.getcwd()
 # Hyperparameters
 MAX_LEN = 128
 TRAIN_BATCH_SIZE = 32

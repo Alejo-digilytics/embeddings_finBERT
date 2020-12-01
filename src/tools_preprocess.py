@@ -1,6 +1,9 @@
 import os
 import numpy as np
-import pdftotext
+try:
+    import pdftotext
+except:
+    pass
 import pandas as pd
 from sklearn import preprocessing as prep
 
