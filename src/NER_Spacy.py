@@ -1,6 +1,6 @@
 import spacy
 import os
-from src.tools import pdf_to_text
+from src.tools_preprocess import pdf_to_text
 
 def NER_BERT_sm_uncased(text_name):
     # Download a spacy model for processing English
@@ -24,7 +24,7 @@ def NER_BERT_sm_uncased(text_name):
     # Display the entities found by the model, and the type of each.
     print('{:<12}  {:}\n'.format('Entity', 'Type'))
 
-    # Print eahc entity found
+    # Print each entity found
     for ent in doc.ents:
         # Print the entity text `ent.text` and its label `ent.label_`.
         print('{:<12}  {:}'.format(ent.text, ent.label_))

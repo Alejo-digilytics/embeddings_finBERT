@@ -1,5 +1,4 @@
 import spacy
-import torch
 from spacy.lang.en import English
 from transformers import BertTokenizer, BertModel
 from transformers import AutoTokenizer, AutoModel
@@ -7,6 +6,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 spacy.prefer_gpu()
+
 
 def get_tokenizer_and_model(path_to_case, output_h_s=False):
     """
@@ -21,7 +21,7 @@ def get_tokenizer_and_model(path_to_case, output_h_s=False):
     return model, tokenizer
 
 
-def nlp_doc_obj(my_text,download=False):
+def nlp_doc_obj(my_text, download=False):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(my_text)
 
@@ -31,18 +31,6 @@ def nlp_doc_obj(my_text,download=False):
         token_list.append(token.text)
     print(token_list)
     return doc
-
-def check_device():
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-        print('There are %d GPU(s) available.' % torch.cuda.device_count())
-        print('We will use the GPU:', torch.cuda.get_device_name(0))
-        print("Cuda architectures lis{}".format(torch.cuda.get_arch_list()))
-        print("Device capability {}".format(torch.cuda.get_device_capability()))
-    else:
-        print('No GPU available, using the CPU instead.')
-        device = torch.device("cpu")
-    return device
 
 
 def sentence_tokenization(text):
